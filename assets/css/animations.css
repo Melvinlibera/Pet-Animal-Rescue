@@ -1,0 +1,466 @@
+/* =========================
+   ESTILOS PARA ANIMACIONES CON ANIME.JS
+   PET HOSPITAL AND RESCUE - Sistema de Rescate y Hospital
+   ========================= */
+
+/* ========================================================
+   ESTADOS DE ANIMACIONES
+   ======================================================== */
+
+/* Estado inicial antes de animación */
+[data-animate] {
+    opacity: 0;
+}
+
+/* Estado completado de animación */
+.animated,
+.gsap-animated {
+    opacity: 1;
+}
+
+/* ========================================================
+   NOTIFICACIONES ANIMADAS
+   ======================================================== */
+
+.notification {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    animation: slideIn 0.4s ease-out;
+    max-width: 90vw;
+}
+
+.notification-success {
+    background-color: #28a745 !important;
+    color: #ffffff;
+}
+
+.notification-error {
+    background-color: #dc3545 !important;
+    color: #ffffff;
+}
+
+.notification-warning {
+    background-color: #ffc107 !important;
+    color: #000000;
+}
+
+.notification-info {
+    background-color: #17a2b8 !important;
+    color: #ffffff;
+}
+
+/* ========================================================
+   LOADER / SPINNER ANIMADO
+   ======================================================== */
+
+.hnh-loader {
+    text-align: center;
+    opacity: 1;
+}
+
+.spinner {
+    border: 4px solid rgba(30, 144, 255, 0.1);
+    border-top: 4px solid #1e90ff;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin: 0 auto 20px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ========================================================
+   EFECTO RIPPLE EN BOTONES
+   ======================================================== */
+
+button,
+.btn,
+.btn-nav {
+    position: relative;
+    overflow: hidden;
+}
+
+button span,
+.btn span,
+.btn-nav span {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.6);
+    pointer-events: none;
+}
+
+/* ========================================================
+   CARDS Y CONTENEDORES
+   ======================================================== */
+
+.card {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+body.dark .card {
+    background: var(--card-dark);
+    color: var(--text);
+    border-color: var(--border-dark);
+}
+
+/* ========================================================
+   TRANSICIONES DE ENTRADA/SALIDA
+   ======================================================== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOut {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(300px);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes scaleOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* ========================================================
+   MODAL / DIÁLOGO ANIMADO
+   ======================================================== */
+
+.modal,
+.dialog {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.modal.active,
+.dialog.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ========================================================
+   INPUTS CON ANIMACIÓN
+   ======================================================== */
+
+input,
+textarea,
+select {
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.1);
+}
+
+body.dark input:focus,
+body.dark textarea:focus,
+body.dark select:focus {
+    border-color: var(--secondary);
+    box-shadow: 0 0 0 3px rgba(30, 144, 255, 0.2);
+}
+
+/* ========================================================
+   HOVER EFFECTS MEJORADOS
+   ======================================================== */
+
+a,
+button,
+.btn {
+    transition: all 0.3s ease;
+}
+
+a:hover,
+button:hover,
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+/* ========================================================
+   MODO OSCURO - ANIMACIONES
+   ======================================================== */
+
+body.dark .notification {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .spinner {
+    border-color: rgba(30, 144, 255, 0.2);
+    border-top-color: #1e90ff;
+}
+
+body.dark input,
+body.dark textarea,
+body.dark select {
+    background: var(--input-bg);
+    color: var(--input-text);
+    border-color: var(--input-border);
+}
+
+/* ========================================================
+   ANIMACIONES DE PÁGINA
+   ======================================================== */
+
+/* Fade in al cargar página */
+body {
+    animation: fadeIn 0.5s ease-out;
+}
+
+/* ========================================================
+   SCROLL ANIMATIONS
+   ======================================================== */
+
+[data-scroll-animate] {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-scroll-animate].in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ========================================================
+   TABLA CON ANIMACIONES
+   ======================================================== */
+
+table tbody tr {
+    transition: all 0.3s ease;
+}
+
+table tbody tr:hover {
+    background-color: rgba(30, 144, 255, 0.05);
+    transform: scale(1.01);
+}
+
+body.dark table tbody tr:hover {
+    background-color: rgba(30, 144, 255, 0.1);
+}
+
+/* ========================================================
+   PROGRESS BAR ANIMADA (si aplica)
+   ======================================================== */
+
+.progress-bar {
+    animation: progressIn 0.6s ease-out;
+}
+
+@keyframes progressIn {
+    from {
+        width: 0;
+        opacity: 0;
+    }
+    to {
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+/* ========================================================
+   SKELETON LOADING (si aplica)
+   ======================================================== */
+
+.skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--background) 25%,
+        rgba(255, 255, 255, 0.1) 50%,
+        var(--background) 75%
+    );
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+body.dark .skeleton {
+    background: linear-gradient(
+        90deg,
+        var(--card-dark) 25%,
+        rgba(255, 255, 255, 0.05) 50%,
+        var(--card-dark) 75%
+    );
+    background-size: 200% 100%;
+}
+
+/* ========================================================
+   ANIMACIONES RÁPIDAS PARA INTERACCIONES
+   ======================================================== */
+
+.bounce {
+    animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+
+.shake {
+    animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-10px);
+    }
+    75% {
+        transform: translateX(10px);
+    }
+}
+
+/* ========================================================
+   ANIMACIONES DE ENTRADA PARA LISTAS
+   ======================================================== */
+
+ul li,
+ol li,
+.list-item {
+    opacity: 0;
+    animation: slideInLeft 0.5s ease forwards;
+}
+
+ul li:nth-child(1) { animation-delay: 0.1s; }
+ul li:nth-child(2) { animation-delay: 0.2s; }
+ul li:nth-child(3) { animation-delay: 0.3s; }
+ul li:nth-child(4) { animation-delay: 0.4s; }
+ul li:nth-child(5) { animation-delay: 0.5s; }
+ul li:nth-child(n+6) { animation-delay: 0.6s; }
+
+/* ========================================================
+   MEJORAS PARA ACCESIBILIDAD
+   ======================================================== */
+
+/* Respetar preferencias de animación reducida */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
