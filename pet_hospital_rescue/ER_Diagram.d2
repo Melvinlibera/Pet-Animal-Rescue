@@ -1,0 +1,137 @@
+# Diagrama ER - Sistema de Citas Médicas Hospital & Human
+# Versión: 1.0.0 | Fecha: Marzo 2026
+# Base de Datos: MySQL 8.0+ con InnoDB
+# Descripción: Modelo entidad-relación completo con 4 tablas principales
+
+direction: right
+
+# =============================================================================
+# TABLA: USUARIOS
+# - Almacena pacientes, doctores y administradores
+# - Campos únicos: cedula, correo
+# - Roles: admin, doctor, user
+# - Contraseña: hasheada con password_hash()
+# =============================================================================
+
+usuarios: {
+  shape: sql_table
+  id: int PK
+  nombre: varchar(100)
+  cedula: varchar(20) UNIQUE
+  telefono: varchar(20)
+  correo: varchar(100) UNIQUE
+  password: varchar(255)
+  seguro: varchar(50)
+  rol: varchar(20)
+  fecha_registro: timestamp
+}
+
+# =============================================================================
+# TABLA: ESPECIALIDADES
+# - 15 especialidades médicas con precios en RD$
+# - Campos: nombre, descripcion, precio
+# =============================================================================
+
+especialidades: {
+  shape: sql_table
+  id: int PK
+  nombre: varchar(100)
+  descripcion: text
+  precio: decimal(10,2)
+}
+
+# =============================================================================
+# TABLA: DOCTORES
+# - Enlaza usuarios con especialidades
+# - Relación 1:1 con usuarios (rol=doctor)
+# - Relación N:1 con especialidades
+# =============================================================================
+
+doctores: {
+  shape: sql_table
+  id: int PK
+  nombre: varchar(100)
+  id_especialidad: int FK
+  id_usuario: int FK
+}
+
+# =============================================================================
+# TABLA: CITAS
+# - Registra citas médicas agendadas
+# - Estados: pendiente, confirmada, cancelada
+# - Relaciones con usuario, especialidad y doctor
+# =============================================================================
+
+citas: {
+  shape: sql_table
+  id: int PK
+  id_usuario: int FK
+  id_especialidad: int FK
+  id_doctor: int FK
+  fecha: date
+  hora: time
+  estado: enum
+  fecha_creacion: timestamp
+}
+
+# =============================================================================
+# RELACIONES ENTRE TABLAS
+# =============================================================================
+
+usuarios.id -> doctores.id_usuario: "1 a N\n(Usuario → Doctor)"
+especialidades.id -> doctores.id_especialidad: "1 a N\n(Especialidad → Doctores)"
+usuarios.id -> citas.id_usuario: "1 a N\n(Usuario → Citas)"
+especialidades.id -> citas.id_especialidad: "1 a N\n(Especialidad → Citas)"
+doctores.id -> citas.id_doctor: "1 a N\n(Doctor → Citas)"
+
+# =============================================================================
+# USUARIOS DEL SISTEMA (CREDENCIALES)
+# =============================================================================
+
+credenciales_admin: "👨‍💼 ADMINISTRADOR\n• Usuario: admin@hospitalandhuman.com\n• Contraseña: 123456\n• Rol: admin\n• Cédula: 0000000000" {
+  shape: text
+}
+
+credenciales_doctores: "👨‍⚕️ DOCTORES REGISTRADOS\n\n1. Dr. Luis Fernández (Psicología)\n   dr.luis@hospitalandhuman.com / 123456\n\n2. Dra. Carmen Rodríguez (Medicina General)\n   dra.carmen@hospitalandhuman.com / 123456\n\n3. Dr. José Martínez (Cardiología)\n   dr.jose@hospitalandhuman.com / 123456\n\n4. Dra. Laura Gómez (Ginecología)\n   dra.laura@hospitalandhuman.com / 123456\n\n5. Dr. Ricardo Sánchez (Urología)\n   dr.ricardo@hospitalandhuman.com / 123456\n\n6. Dra. Patricia Díaz (Oncología)\n   dra.patricia@hospitalandhuman.com / 123456\n\n7. Dr. Manuel Herrera (Nefrología)\n   dr.manuel@hospitalandhuman.com / 123456\n\n8. Dra. Andrea Castillo (Endocrinología)\n   dra.andrea@hospitalandhuman.com / 123456\n\n9. Dr. Javier Morales (Traumatología)\n   dr.javier@hospitalandhuman.com / 123456\n\n10. Dra. Daniela Ruiz (Pediatría)\n    dra.daniela@hospitalandhuman.com / 123456\n\n11. Dr. Fernando Navarro (Neonatología)\n    dr.fernando@hospitalandhuman.com / 123456\n\n12. Dra. Sofía Méndez (Medicina Intensiva)\n    dra.sofia@hospitalandhuman.com / 123456\n\n13. Dr. Alberto Cruz (Radiología)\n    dr.alberto@hospitalandhuman.com / 123456\n\n14. Dra. Valeria Peña (Dermatología)\n    dra.valeria@hospitalandhuman.com / 123456\n\n15. Dr. Miguel Ortega (Oftalmología)\n    dr.miguel@hospitalandhuman.com / 123456\n\n📝 Nota: Todas las contraseñas son '123456'" {
+  shape: text
+}
+
+# =============================================================================
+# ESPECIALIDADES MÉDICAS DISPONIBLES
+# =============================================================================
+
+especialidades_lista: "🏥 ESPECIALIDADES MÉDICAS\n\n1. Psicología - RD$ 2,000\n2. Medicina General - RD$ 1,500\n3. Cardiología - RD$ 3,500\n4. Ginecología y Obstetricia - RD$ 3,000\n5. Urología - RD$ 2,800\n6. Oncología - RD$ 5,000\n7. Nefrología - RD$ 3,200\n8. Endocrinología - RD$ 3,000\n9. Traumatología y Ortopedia - RD$ 3,500\n10. Pediatría - RD$ 2,000\n11. Neonatología - RD$ 4,000\n12. Medicina Intensiva (UCI) - RD$ 6,000\n13. Radiología - RD$ 2,500\n14. Dermatología - RD$ 2,200\n15. Oftalmología - RD$ 2,700" {
+  shape: text
+}
+
+# =============================================================================
+# ARQUITECTURA DEL SISTEMA
+# =============================================================================
+
+arquitectura: "🏗️ ARQUITECTURA TÉCNICA\n\n• Frontend: HTML5, CSS3, JavaScript\n• Backend: PHP 8.0+ con PDO\n• Base de Datos: MySQL 8.0+ InnoDB\n• Servidor: Apache/XAMPP\n\n🔐 SEGURIDAD:\n• Hash: password_hash(PASSWORD_DEFAULT)\n• SQL Injection: Prepared Statements\n• XSS: htmlspecialchars()\n• Sesiones: Control por roles\n\n📱 FUNCIONALIDADES:\n• Panel Admin: CRUD completo\n• Panel Doctor: Citas y perfil\n• Panel Usuario: Agendar citas\n• Validaciones: Cliente y servidor" {
+  shape: text
+}
+
+# =============================================================================
+# CONEXIONES VISUALES
+# =============================================================================
+
+credenciales_admin -> usuarios: "Acceso Admin" {
+  style.stroke: "#0a1f44"
+  style.stroke-width: 2
+}
+
+credenciales_doctores -> usuarios: "Acceso Doctores" {
+  style.stroke: "#1e90ff"
+  style.stroke-width: 2
+}
+
+especialidades_lista -> especialidades: "Especialidades" {
+  style.stroke: "#28a745"
+  style.stroke-width: 2
+}
+
+arquitectura -> usuarios: "Sistema" {
+  style.stroke: "#6c757d"
+  style.stroke-width: 2
+}
